@@ -869,8 +869,13 @@ class tmp_trading_env(tmp_asset_finder):
     empty_trading_env
     tmp_asset_finder
     """
+    def __init__(self, load=None, *args, **kwargs):
+        super(tmp_trading_env, self).__init__(*args, **kwargs)
+        self._load = load
+
     def __enter__(self):
         return TradingEnvironment(
+            load=self._load,
             asset_db_path=super(tmp_trading_env, self).__enter__().engine,
         )
 
